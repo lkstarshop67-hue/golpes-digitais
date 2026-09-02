@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Como Evitar Golpes Digitais | EJA</title>
+
+    <meta name="description"
+          content="Material educativo sobre golpes digitais, WhatsApp, Pix e segurança digital.">
+
+    <style>
+
+        /* =========================
+           CONFIGURAÇÕES GERAIS
+        ========================== */
+
+        :root {
+            --bg: #07111f;
+            --bg2: #0d1b2e;
+            --card: #10243b;
+            --line: #23415f;
+
+            --text: #eef7ff;
+            --muted: #a9bdd0;
+
+            --accent: #24d1b5;
+            --accent2: #48a7ff;
+            --danger: #ff647c;
+
+            --shadow: 0 18px 50px rgba(0, 0, 0, .25);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--bg),
+                    #0a1727 55%,
+                    var(--bg)
+                );
+
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, 92%);
+            margin: auto;
+        }
+
+
+        /* =========================
+           MENU
+        ========================== */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+
+            background: rgba(7, 17, 31, .86);
+            backdrop-filter: blur(16px);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, .07);
+        }
+
+        .navin {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: -.4px;
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
+
+        .links {
+            display: flex;
+            gap: 22px;
+
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .links a {
+            transition: .2s;
+        }
+
+        .links a:hover {
+            color: var(--accent);
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 700px;
+
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+
+            gap: 48px;
+
+            align-items: center;
+
+            padding: 70px 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+
+            padding: 7px 12px;
+
+            border:
+                1px solid #28506f;
+
+            border-radius: 999px;
+
+            color: var(--accent);
+
+            font-size: 13px;
+            font-weight: 800;
+
+            background: #0b2034;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 76px);
+
+            line-height: .98;
+
+            margin: 18px 0;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 18px;
+
+            color: var(--muted);
+
+            max-width: 650px;
+        }
+
+
+        /* =========================
+           BOTÕES
+        ========================== */
+
+        .buttons {
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 28px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 18px;
+
+            border-radius: 12px;
+
+            font-weight: 800;
+
+            border:
+                1px solid var(--line);
+
+            background: #0e2136;
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+
+            color: #06201c;
+
+            border-color: var(--accent);
+        }
+
+
+        /* =========================
+           IMAGEM PRINCIPAL
+        ========================== */
+
+        .hero-img {
+            height: 480px;
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow: var(--shadow);
+
+            border:
+                1px solid #294b68;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .hero-img::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(36, 209, 181, .16),
+                    transparent 50%,
+                    rgba(72, 167, 255, .18)
+                );
+        }
+
+
+        /* =========================
+           SEÇÕES
+        ========================== */
+
+        section {
+            padding: 85px 0;
+        }
+
+        .section-title {
+            max-width: 720px;
+
+            margin-bottom: 38px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+
+            line-height: 1.1;
+
+            margin:
+                0 0 12px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+
+            margin: 0;
+        }
+
+
+        /* =========================
+           GRID
+        ========================== */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .card {
+            background:
+                linear-gradient(
+                    180deg,
+                    #10253b,
+                    #0c1d30
+                );
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .12);
+
+            transition: .25s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                var(--accent);
+        }
+
+        .card h3 {
+            margin:
+                0 0 8px;
+        }
+
+        .card p {
+            color: var(--muted);
+
+            margin: 0;
+        }
+
+        .num {
+            color: var(--accent);
+
+            font-weight: 900;
+
+            font-size: 13px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           SEÇÕES COM IMAGEM
+        ========================== */
+
+        .split {
+            display: grid;
+
+            grid-template-columns:
+                .9fr 1.1fr;
+
+            gap: 40px;
+
+            align-items: center;
+        }
+
+        .photo {
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            border:
+                1px solid var(--line);
+
+            height: 420px;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        /* =========================
+           CHECKLIST
+        ========================== */
+
+        .checks {
+            display: grid;
+
+            gap: 12px;
+        }
+
+        .check {
+            padding: 16px 18px;
+
+            border-radius: 14px;
+
+            background: #0d2136;
+
+            border:
+                1px solid var(--line);
+        }
+
+        .check b {
+            color: var(--accent);
+        }
+
+
+        /* =========================
+           ALERTA
+        ========================== */
+
+        .warning {
+            background:
+                linear-gradient(
+                    135deg,
+                    #112a3d,
+                    #132237
+                );
+
+            border:
+                1px solid #2b5576;
+
+            border-radius: 26px;
+
+            padding: 35px;
+
+            display: flex;
+
+            gap: 25px;
+
+            align-items: center;
+        }
+
+        .warning .big {
+            font-size: 52px;
+        }
+
+        .warning h2 {
+            margin:
+                0 0 6px;
+        }
+
+        .warning p {
+            color: var(--muted);
+
+            margin: 0;
+        }
+
+
+        /* =========================
+           QUIZ
+        ========================== */
+
+        .quiz {
+            max-width: 850px;
+
+            margin: auto;
+
+            background: #0e2136;
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 24px;
+
+            padding: 30px;
+        }
+
+        .question {
+            padding: 20px 0;
+
+            border-bottom:
+                1px solid #203b55;
+        }
+
+        .question:last-child {
+            border-bottom: 0;
+        }
+
+        .question h3 {
+            margin:
+                0 0 12px;
+
+            font-size: 18px;
+        }
+
+        .option {
+            display: block;
+
+            padding: 11px 14px;
+
+            margin: 8px 0;
+
+            border:
+                1px solid #2a4965;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: var(--muted);
+
+            transition: .2s;
+        }
+
+        .option:hover {
+            border-color:
+                var(--accent);
+
+            color: var(--text);
+        }
+
+        .option input {
+            margin-right: 8px;
+        }
+
+        .result {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: #0a1828;
+
+            display: none;
+        }
+
+        .result.good {
+            border:
+                1px solid var(--accent);
+
+            color: var(--accent);
+        }
+
+        .result.bad {
+            border:
+                1px solid var(--danger);
+
+            color: #ff9aaa;
+        }
+
+
+        /* =========================
+           RODAPÉ
+        ========================== */
+
+        footer {
+            padding: 45px 0;
+
+            border-top:
+                1px solid rgba(255, 255, 255, .08);
+
+            color: var(--muted);
+
+            text-align: center;
+        }
+
+        .small {
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================== */
+
+        @media(max-width: 850px) {
+
+            .links {
+                display: none;
+            }
+
+            .hero,
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+
+            .hero-img {
+                height: 350px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo {
+                height: 330px;
+            }
+
+            .warning {
+                align-items: flex-start;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         MENU
+    ========================== -->
+
+    <nav>
+
+        <div class="container navin">
+
+            <div class="brand">
+                SEGURANÇA
+                <span>DIGITAL</span>
+            </div>
+
+            <div class="links">
+
+                <a href="#golpes">
+                    Golpes
+                </a>
+
+                <a href="#prevencao">
+                    Prevenção
+                </a>
+
+                <a href="#whatsapp">
+                    WhatsApp
+                </a>
+
+                <a href="#pix">
+                    Pix
+                </a>
+
+                <a href="#quiz">
+                    Quiz
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <header class="container hero">
+
+        <div>
+
+            <div class="eyebrow">
+                PROJETO DE EXTENSÃO • EJA
+            </div>
+
+            <h1>
+
+                Como evitar
+
+                <br>
+
+                <span>
+                    golpes digitais
+                </span>
+
+            </h1>
+
+            <p>
+                Aprenda a reconhecer sinais de fraude
+                e adotar hábitos simples para usar
+                o celular e a internet com mais segurança.
+            </p>
+
+
+            <div class="buttons">
+
+                <a
+                    class="btn primary"
+                    href="#golpes"
+                >
+                    Aprender agora
+                </a>
+
+                <a
+                    class="btn"
+                    href="#quiz"
+                >
+                    Fazer o quiz
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-img">
+
+            <img
+                src="imagem2.png"
+                alt="Estudantes aprendendo em grupo"
+            >
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         GOLPES
+    ========================== -->
+
+    <section id="golpes">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Principais golpes digitais
+                </h2>
+
+                <p>
+                    Muda a história. Repete o truque.
+                    Conheça os padrões mais comuns
+                    para desconfiar antes de agir.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="card">
+
+                    <div class="num">
+                        01 • FALSO FAMILIAR
+                    </div>
+
+                    <h3>
+                        Pedido urgente de dinheiro
+                    </h3>
+
+                    <p>
+                        Alguém se passa por uma pessoa
+                        conhecida e pede uma transferência
+                        com pressa.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        02 • FALSO BANCO
+                    </div>
+
+                    <h3>
+                        Senha ou código
+                    </h3>
+
+                    <p>
+                        O contato pede senha, código
+                        ou outras informações de acesso.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        03 • PHISHING
+                    </div>
+
+                    <h3>
+                        Link suspeito
+                    </h3>
+
+                    <p>
+                        Um link imita um site confiável
+                        para induzir a vítima a agir.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        04 • FALSA PROMOÇÃO
+                    </div>
+
+                    <h3>
+                        Oferta boa demais
+                    </h3>
+
+                    <p>
+                        Uma oferta muito vantajosa
+                        é usada para despertar
+                        curiosidade e pressa.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        05 • FALSA COBRANÇA
+                    </div>
+
+                    <h3>
+                        Boleto ou taxa inesperada
+                    </h3>
+
+                    <p>
+                        Uma cobrança não reconhecida
+                        tenta levar ao pagamento imediato.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        06 • GOLPE DO PIX
+                    </div>
+
+                    <h3>
+                        Transferência sob pressão
+                    </h3>
+
+                    <p>
+                        A vítima é pressionada a realizar
+                        uma transferência rapidamente.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         PREVENÇÃO
+    ========================== -->
+
+    <section id="prevencao">
+
+        <div class="container split">
+
+
+            <div class="photo">
+
+                <img
+                    src="imagem02.png"
+                    alt="Pessoa usando computador"
+                >
+
+            </div>
+
+
+            <div>
+
+                <div class="section-title">
+
+                    <h2>
+                        Regra principal:
+                        faça uma pausa
+                    </h2>
+
+                    <p>
+                        Antes de agir, pare.
+                        A engenharia social tenta
+                        manipular emoções como urgência,
+                        medo, confiança e curiosidade.
+                    </p>
+
+                </div>
+
+
+                <div class="checks">
+
+
+                    <div class="check">
+
+                        <b>PARE</b>
+
+                        —
+                        Não clique, não responda
+                        e não pague imediatamente.
+
+                    </div>
+
+
+                    <div class="check">
+
+                        <b>PENSE</b>
+
+                        —
+                        Analise remetente,
+                        pedido, link e contexto.
+
+                    </div>
+
+
+                    <div class="check">
+
+                        <b>CONFIRME</b>
+
+                        —
+                        Use o canal oficial da pessoa
+                        ou instituição.
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         WHATSAPP
+    ========================== -->
+
+    <section id="whatsapp">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Segurança no WhatsApp
+                </h2>
+
+                <p>
+                    Sua conta precisa de duas barreiras.
+                    Pequenas configurações aumentam
+                    a proteção.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="card">
+
+                    <div class="num">
+                        01
+                    </div>
+
+                    <h3>
+                        Verificação em duas etapas
+                    </h3>
+
+                    <p>
+                        Ative a verificação
+                        em duas etapas.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        02
+                    </div>
+
+                    <h3>
+                        Nunca compartilhe códigos
+                    </h3>
+
+                    <p>
+                        Não compartilhe códigos
+                        recebidos por SMS.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        03
+                    </div>
+
+                    <h3>
+                        Desconfie do inesperado
+                    </h3>
+
+                    <p>
+                        Tenha cuidado com
+                        mensagens inesperadas.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        04
+                    </div>
+
+                    <h3>
+                        Bloqueie
+                    </h3>
+
+                    <p>
+                        Bloqueie contatos
+                        suspeitos.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        05
+                    </div>
+
+                    <h3>
+                        Denuncie
+                    </h3>
+
+                    <p>
+                        Use a função de denúncia
+                        quando necessário.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="num">
+                        06
+                    </div>
+
+                    <h3>
+                        Privacidade
+                    </h3>
+
+                    <p>
+                        Revise suas configurações
+                        de privacidade.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         PIX
+    ========================== -->
+
+    <section id="pix">
+
+        <div class="container split">
+
+
+            <div>
+
+                <div class="section-title">
+
+                    <h2>
+                        Cuidados com o Pix
+                    </h2>
+
+                    <p>
+                        Confira antes de transferir.
+                        Se houver fraude, procure seu banco
+                        rapidamente e pergunte sobre o
+                        Mecanismo Especial de Devolução (MED).
+                    </p>
+
+                </div>
+
+
+                <div class="checks">
+
+
+                    <div class="check">
+
+                        ✓
+                        <b>Nome</b>
+                        do destinatário
+
+                    </div>
+
+
+                    <div class="check">
+
+                        ✓
+                        <b>Valor</b>
+                        da transferência
+
+                    </div>
+
+
+                    <div class="check">
+
+                        ✓
+                        <b>Instituição financeira</b>
+
+                    </div>
+
+
+                    <div class="check">
+
+                        ✓
+                        <b>Motivo</b>
+                        do pagamento
+
+                    </div>
+
+
+                    <div class="check">
+
+                        ✓
+                        <b>Pedido confirmado</b>
+                        com a pessoa
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="photo">
+
+                <img
+                    src="PIX01.png"
+                    alt="Celular com aplicativo de pagamento"
+                >
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         AVISO
+    ========================== -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="warning">
+
+
+                <div class="big">
+                    🛡️
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Na dúvida,
+                        não clique!
+                    </h2>
+
+                    <p>
+
+                        <strong>
+                            PARE — PENSE — CONFIRME.
+                        </strong>
+
+                        Conhecimento também é
+                        uma forma de proteção.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         QUIZ
+    ========================== -->
+
+    <section id="quiz">
+
+        <div class="container">
+
+
+            <div class="section-title">
+
+                <h2>
+                    Quiz:
+                    é golpe ou não é?
+                </h2>
+
+                <p>
+                    Teste seus conhecimentos.
+                </p>
+
+            </div>
+
+
+            <div class="quiz">
+
+
+                <!-- QUESTÃO 1 -->
+
+                <div class="question">
+
+                    <h3>
+
+                        1. Você recebe:
+
+                        <br>
+
+                        “URGENTE! Sua conta bancária
+                        será bloqueada. Clique aqui
+                        para regularizar imediatamente.”
+
+                        <br><br>
+
+                        O que fazer?
+
+                    </h3>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q1"
+                            value="0"
+                        >
+
+                        Clicar imediatamente.
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q1"
+                            value="1"
+                        >
+
+                        Parar, analisar e confirmar
+                        pelo canal oficial.
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- QUESTÃO 2 -->
+
+                <div class="question">
+
+                    <h3>
+
+                        2. Uma pessoa pede seu código
+                        recebido por SMS.
+
+                        <br>
+
+                        Você deve enviar?
+
+                    </h3>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q2"
+                            value="0"
+                        >
+
+                        Sim, se ela disser
+                        que é do suporte.
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q2"
+                            value="1"
+                        >
+
+                        Não.
+                        O código não deve
+                        ser compartilhado.
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- QUESTÃO 3 -->
+
+                <div class="question">
+
+                    <h3>
+
+                        3. Antes de fazer um Pix,
+                        qual atitude é mais segura?
+
+                    </h3>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q3"
+                            value="1"
+                        >
+
+                        Conferir nome, valor,
+                        instituição, motivo e
+                        confirmar o pedido.
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="q3"
+                            value="0"
+                        >
+
+                        Fazer logo para não
+                        perder a oportunidade.
+
+                    </label>
+
+                </div>
+
+
+
+                <button
+                    class="btn primary"
+                    onclick="corrigir()"
+                >
+
+                    Ver resultado
+
+                </button>
+
+
+                <div
+                    id="result"
+                    class="result"
+                ></div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <strong>
+                Projeto de Extensão •
+                Sistemas de Informação
+            </strong>
+
+            <div class="small">
+
+                EJA • Juazeiro do Norte – CE
+                • Material educativo
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT DO QUIZ
+    ========================== -->
+
+    <script>
+
+        function corrigir() {
+
+            let pontos = 0;
+
+
+            for (let i = 1; i <= 3; i++) {
+
+                const resposta =
+                    document.querySelector(
+                        'input[name="q' + i + '"]:checked'
+                    );
+
+
+                if (resposta) {
+
+                    pontos +=
+                        Number(resposta.value);
+
+                }
+
+            }
+
+
+            const resultado =
+                document.getElementById("result");
+
+
+            resultado.style.display =
+                "block";
+
+
+            if (pontos === 3) {
+
+                resultado.className =
+                    "result good";
+
+                resultado.innerHTML = `
+
+                    <strong>
+                        ${pontos}/3 acertos!
+                    </strong>
+
+                    <br>
+
+                    Muito bem!
+                    Você reconheceu os principais
+                    sinais de risco.
+
+                `;
+
+            } else {
+
+                resultado.className =
+                    "result bad";
+
+                resultado.innerHTML = `
+
+                    <strong>
+                        ${pontos}/3 acertos.
+                    </strong>
+
+                    <br>
+
+                    Revise as regras:
+
+                    <strong>
+                        PARE, PENSE e CONFIRME
+                    </strong>
+
+                    antes de agir.
+
+                `;
+
+            }
+
+
+            resultado.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+</html>
