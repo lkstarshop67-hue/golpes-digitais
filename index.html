@@ -842,7 +842,873 @@
             </div>
 
         </div>
+<!-- =========================
+     SIMULAÇÃO DE GOLPE NO WHATSAPP
+========================== -->
 
+<section id="simulacao-whatsapp">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Simulação: você reconhece o golpe?
+            </h2>
+
+            <p>
+                Observe a conversa abaixo. Clique no link suspeito
+                para descobrir os sinais de perigo.
+            </p>
+
+        </div>
+
+
+        <div class="simulacao-area">
+
+
+            <!-- CELULAR -->
+            <div class="celular-simulacao">
+
+                <div class="celular-topo"></div>
+
+
+                <div class="whatsapp-tela">
+
+
+                    <!-- CABEÇALHO -->
+                    <div class="whatsapp-cabecalho">
+
+                        <div class="whatsapp-voltar">
+                            ‹
+                        </div>
+
+
+                        <div class="whatsapp-foto">
+                            👤
+                        </div>
+
+
+                        <div class="whatsapp-contato">
+
+                            <strong>
+                                Promoções Online
+                            </strong>
+
+                            <span>
+                                online
+                            </span>
+
+                        </div>
+
+
+                        <div class="whatsapp-icones">
+                            📹 ⋮
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONVERSA -->
+                    <div class="whatsapp-conversa">
+
+                        <div class="whatsapp-data">
+                            HOJE
+                        </div>
+
+
+                        <!-- MENSAGEM 1 -->
+                        <div class="msg recebida">
+
+                            🎉 <strong>Parabéns!</strong>
+
+                            <br><br>
+
+                            Você foi selecionado para receber
+                            um prêmio exclusivo.
+
+                            <br><br>
+
+                            Para confirmar o recebimento,
+                            clique no link abaixo:
+
+                            <button
+                                class="link-suspeito"
+                                onclick="mostrarAlertaGolpe()"
+                            >
+                                🔗 promocao-premio.xyz/resgate
+                            </button>
+
+
+                            <div class="msg-hora">
+                                21:47
+                            </div>
+
+                        </div>
+
+
+                        <!-- RESPOSTA -->
+                        <div class="msg enviada">
+
+                            Isso é verdade?
+
+                            <div class="msg-hora">
+                                21:48 ✓✓
+                            </div>
+
+                        </div>
+
+
+                        <!-- MENSAGEM 2 -->
+                        <div class="msg recebida">
+
+                            Sim! Mas você precisa agir agora.
+
+                            <br><br>
+
+                            ⏰ O prêmio será cancelado
+                            em apenas 10 minutos!
+
+                            <div class="msg-hora">
+                                21:48
+                            </div>
+
+                        </div>
+
+
+                        <!-- RESPOSTA -->
+                        <div class="msg enviada">
+
+                            Vou verificar primeiro.
+
+                            <div class="msg-hora">
+                                21:49 ✓✓
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BARRA DE MENSAGEM -->
+                    <div class="whatsapp-barra">
+
+                        <div class="whatsapp-campo">
+                            Digite uma mensagem
+                        </div>
+
+                        <div class="whatsapp-microfone">
+                            🎤
+                        </div>
+
+                    </div>
+
+
+                    <!-- ALERTA -->
+                    <div
+                        class="alerta-golpe"
+                        id="alertaGolpe"
+                    >
+
+                        <div class="alerta-icone">
+                            ⚠️
+                        </div>
+
+                        <h3>
+                            Cuidado: possível golpe!
+                        </h3>
+
+                        <p>
+                            Esta mensagem apresenta vários
+                            sinais comuns de fraude.
+                        </p>
+
+
+                        <div class="sinais-golpe">
+
+                            <div>
+                                ❌ Prêmio inesperado
+                            </div>
+
+                            <div>
+                                ❌ Pressão para agir rápido
+                            </div>
+
+                            <div>
+                                ❌ Link com endereço suspeito
+                            </div>
+
+                            <div>
+                                ❌ Possível pedido de dados
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="btn primary"
+                            onclick="fecharAlertaGolpe()"
+                        >
+                            Entendi
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- TEXTO EDUCATIVO AO LADO -->
+            <div class="simulacao-explicacao">
+
+                <div class="card">
+
+                    <div class="num">
+                        ANALISE A MENSAGEM
+                    </div>
+
+                    <h3>
+                        Quais são os sinais do golpe?
+                    </h3>
+
+                    <p>
+                        Golpistas costumam usar mensagens
+                        inesperadas, prêmios falsos e senso
+                        de urgência para fazer a vítima agir
+                        sem pensar.
+                    </p>
+
+                </div>
+
+
+                <div class="check">
+
+                    <b>1. PRÊMIO INESPERADO</b>
+
+                    <br>
+
+                    Você participou de alguma promoção?
+
+                </div>
+
+
+                <div class="check">
+
+                    <b>2. PRESSÃO</b>
+
+                    <br>
+
+                    Frases como "última chance" e
+                    "clique agora" são sinais de alerta.
+
+                </div>
+
+
+                <div class="check">
+
+                    <b>3. LINK ESTRANHO</b>
+
+                    <br>
+
+                    Antes de clicar, observe cuidadosamente
+                    o endereço do site.
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================
+   SIMULAÇÃO WHATSAPP
+========================= */
+
+.simulacao-area {
+
+    display: grid;
+
+    grid-template-columns:
+        380px
+        1fr;
+
+    gap: 60px;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* CELULAR */
+
+.celular-simulacao {
+
+    width: 360px;
+
+    height: 700px;
+
+    background: #050505;
+
+    border-radius: 42px;
+
+    padding: 10px;
+
+    position: relative;
+
+    margin: auto;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, .55);
+
+    border:
+        2px solid #294b68;
+
+}
+
+
+.celular-topo {
+
+    width: 120px;
+
+    height: 28px;
+
+    background: #050505;
+
+    border-radius: 20px;
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+}
+
+
+/* TELA */
+
+.whatsapp-tela {
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 34px;
+
+    background: #efeae2;
+
+    color: #111;
+
+    position: relative;
+
+}
+
+
+/* CABEÇALHO */
+
+.whatsapp-cabecalho {
+
+    height: 75px;
+
+    background: #075e54;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        18px 14px 8px;
+
+}
+
+
+.whatsapp-voltar {
+
+    font-size: 32px;
+
+    margin-right: 8px;
+
+}
+
+
+.whatsapp-foto {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-right: 10px;
+
+}
+
+
+.whatsapp-contato {
+
+    flex: 1;
+
+}
+
+
+.whatsapp-contato strong {
+
+    display: block;
+
+    font-size: 14px;
+
+}
+
+
+.whatsapp-contato span {
+
+    font-size: 11px;
+
+    opacity: .8;
+
+}
+
+
+.whatsapp-icones {
+
+    font-size: 18px;
+
+}
+
+
+/* CONVERSA */
+
+.whatsapp-conversa {
+
+    height: calc(100% - 130px);
+
+    padding: 18px 10px;
+
+    overflow-y: auto;
+
+    background-color: #efeae2;
+
+    background-image:
+
+        radial-gradient(
+            rgba(0,0,0,.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 18px 18px;
+
+}
+
+
+/* DATA */
+
+.whatsapp-data {
+
+    background: #fff3c4;
+
+    width: fit-content;
+
+    margin:
+        0 auto 18px;
+
+    padding:
+        5px 12px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    color: #555;
+
+}
+
+
+/* MENSAGENS */
+
+.msg {
+
+    max-width: 88%;
+
+    padding:
+        9px 10px;
+
+    margin-bottom: 12px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    box-shadow:
+        0 1px 2px
+        rgba(0,0,0,.18);
+
+    animation:
+        mensagemAparecer
+        .5s ease;
+
+}
+
+
+.msg.recebida {
+
+    background: white;
+
+    margin-right: auto;
+
+    border-top-left-radius: 2px;
+
+}
+
+
+.msg.enviada {
+
+    background: #d9fdd3;
+
+    margin-left: auto;
+
+    border-top-right-radius: 2px;
+
+}
+
+
+.msg-hora {
+
+    font-size: 9px;
+
+    color: #777;
+
+    text-align: right;
+
+    margin-top: 4px;
+
+}
+
+
+/* LINK SUSPEITO */
+
+.link-suspeito {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 9px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #e7e7e7;
+
+    color: #075e54;
+
+    text-decoration: underline;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    word-break: break-all;
+
+}
+
+
+.link-suspeito:hover {
+
+    background: #d6d6d6;
+
+}
+
+
+/* BARRA */
+
+.whatsapp-barra {
+
+    height: 55px;
+
+    background: #f0f2f5;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px;
+
+}
+
+
+.whatsapp-campo {
+
+    flex: 1;
+
+    height: 40px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding-left: 15px;
+
+    color: #777;
+
+    font-size: 12px;
+
+}
+
+
+.whatsapp-microfone {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #075e54;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* ALERTA */
+
+.alerta-golpe {
+
+    display: none;
+
+    position: absolute;
+
+    z-index: 50;
+
+    left: 18px;
+
+    right: 18px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,.45);
+
+    animation:
+        alertaAparecer
+        .3s ease;
+
+}
+
+
+.alerta-icone {
+
+    font-size: 42px;
+
+}
+
+
+.alerta-golpe h3 {
+
+    color: #d32f2f;
+
+    margin:
+        8px 0;
+
+}
+
+
+.alerta-golpe p {
+
+    font-size: 13px;
+
+    color: #555;
+
+}
+
+
+.sinais-golpe {
+
+    text-align: left;
+
+    background: #fff5f5;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    margin:
+        15px 0;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ANIMAÇÕES */
+
+@keyframes mensagemAparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes alertaAparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-50%)
+            scale(.8);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(-50%)
+            scale(1);
+
+    }
+
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width: 850px) {
+
+    .simulacao-area {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 40px;
+
+    }
+
+}
+
+
+@media(max-width: 450px) {
+
+    .celular-simulacao {
+
+        width: 310px;
+
+        height: 620px;
+
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================
+   ALERTA DO LINK SUSPEITO
+========================= */
+
+function mostrarAlertaGolpe() {
+
+    document
+        .getElementById(
+            "alertaGolpe"
+        )
+        .style
+        .display = "block";
+
+}
+
+
+function fecharAlertaGolpe() {
+
+    document
+        .getElementById(
+            "alertaGolpe"
+        )
+        .style
+        .display = "none";
+
+}
+
+</script>
     </footer>
 
 
