@@ -1101,7 +1101,7 @@ footer {
     .grid,
     .steps-verify,
     .signs-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .photo {
@@ -1126,6 +1126,23 @@ footer {
 
     .quiz {
         padding: 22px;
+    }
+
+    .stats-bar {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .stat {
+        padding: 20px 14px;
+    }
+
+    .stat .stat-num {
+        font-size: 30px;
+    }
+
+    .stat .stat-label {
+        font-size: 12px;
     }
 }
 
@@ -1178,8 +1195,37 @@ footer {
         width: 100%;
     }
 
-    #btnCorrigir {
+    #btnCorrigir,
+    #btnTentarNovamente {
         width: 100%;
+    }
+
+    /* Abaixo de 600px, tudo vira 1 coluna: cards, sinais, passos e estatísticas */
+    .grid,
+    .steps-verify,
+    .signs-list,
+    .stats-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        padding: 22px;
+    }
+
+    .stat .stat-num {
+        font-size: 34px;
+    }
+
+    .stat .stat-label {
+        font-size: 13.5px;
+    }
+
+    .review-item {
+        gap: 10px;
+    }
+
+    .review-content h4 {
+        font-size: 14px;
     }
 }
 
