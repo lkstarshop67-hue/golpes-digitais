@@ -55,6 +55,8 @@ img {
 .container {
     width: min(1120px, 92%);
     margin: auto;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 /* Foco visível para navegação por teclado */
@@ -325,6 +327,106 @@ section {
     border-color: rgba(36, 209, 181, .4);
 }
 
+/* Cards de golpes expansíveis: "ver exemplo real" */
+.card.expandable {
+    cursor: pointer;
+}
+
+.card-toggle {
+    background: none;
+    border: none;
+    color: var(--accent2);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0;
+    margin-top: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+}
+
+.card-toggle .seta {
+    transition: transform .25s ease;
+    display: inline-block;
+}
+
+.card-toggle[aria-expanded="true"] .seta {
+    transform: rotate(180deg);
+}
+
+.card-exemplo {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+}
+
+.card-exemplo.aberto {
+    max-height: 240px;
+}
+
+.card-exemplo-texto {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    font-size: 13.5px;
+    color: var(--muted);
+}
+
+.card-exemplo-texto b {
+    color: var(--text);
+}
+
+/* =========================
+   ESTATÍSTICAS ANIMADAS
+========================== */
+
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 44px;
+}
+
+.stat {
+    background: linear-gradient(180deg, #10253b, #0c1d30);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    text-align: center;
+}
+
+.stat .stat-num {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+}
+
+.stat .stat-label {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* =========================
+   ANIMAÇÃO DE ENTRADA AO ROLAR
+========================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .5s ease, transform .5s ease;
+}
+
+.reveal.visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* =========================
    SEÇÕES COM IMAGEM
 ========================== */
@@ -490,7 +592,7 @@ section {
     height: 630px;
     background: #050505;
     border-radius: 38px;
-    padding: 10px;
+    padding: 30px 10px 10px;
     position: relative;
     margin: auto;
     box-shadow: 0 25px 60px rgba(0, 0, 0, .55);
@@ -498,12 +600,12 @@ section {
 }
 
 .celular-topo {
-    width: 110px;
-    height: 24px;
+    width: 100px;
+    height: 18px;
     background: #050505;
     border-radius: 20px;
     position: absolute;
-    top: 10px;
+    top: 8px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -525,31 +627,37 @@ section {
     color: white;
     display: flex;
     align-items: center;
-    padding: 16px 14px 8px;
-    gap: 4px;
+    padding: 16px 12px 8px;
+    gap: 8px;
 }
 
 .whatsapp-voltar {
-    font-size: 28px;
+    font-size: 26px;
+    flex-shrink: 0;
 }
 
 .whatsapp-foto {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .whatsapp-contato {
     flex: 1;
+    min-width: 0;
 }
 
 .whatsapp-contato strong {
     display: block;
     font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .whatsapp-contato span {
@@ -558,7 +666,9 @@ section {
 }
 
 .whatsapp-icones {
-    font-size: 16px;
+    font-size: 15px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .whatsapp-conversa {
@@ -726,7 +836,23 @@ section {
 .quiz-progress {
     color: var(--muted);
     font-size: 13px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
+}
+
+.quiz-progress-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: #0a1828;
+    overflow: hidden;
+    margin-bottom: 22px;
+    border: 1px solid var(--line);
+}
+
+.quiz-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width .35s ease;
 }
 
 .question {
@@ -763,18 +889,64 @@ section {
     margin-right: 8px;
 }
 
-.option-feedback {
-    display: none;
-    margin-top: 10px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 13.5px;
-    background: #0a1828;
-    border: 1px solid var(--line);
+/* Marcação visual da resposta escolhida (dado ao vivo, dinamismo) */
+.option.selecionada {
+    border-color: var(--accent2);
+    color: var(--text);
+    background: rgba(72, 167, 255, .08);
 }
 
-.option-feedback.visivel {
+/* Painel de revisão exibido só depois do envio final,
+   contextualizando o que foi acertado/errado. */
+.review {
+    display: none;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #203b55;
+}
+
+.review.visivel {
     display: block;
+}
+
+.review-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #1a3450;
+}
+
+.review-item:last-child {
+    border-bottom: 0;
+}
+
+.review-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.review-item.certo .review-icon {
+    color: var(--accent);
+}
+
+.review-item.errado .review-icon {
+    color: var(--danger);
+}
+
+.review-content h4 {
+    margin: 0 0 4px;
+    font-size: 14.5px;
+}
+
+.review-content p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13.5px;
+}
+
+.review-content .correta {
+    color: var(--accent);
+    font-weight: 700;
 }
 
 .result {
@@ -823,17 +995,53 @@ footer {
    RESPONSIVIDADE
 ========================== */
 
-@media (max-width: 900px) {
+/* Toque: qualquer elemento clicável tem no mínimo 44x44px,
+   tamanho recomendado para dedos em telas de celular/tablet. */
+.menu-toggle,
+.btn,
+.link-suspeito,
+.option {
+    min-height: 44px;
+}
+
+/* -------- TABLET GRANDE / NOTEBOOK PEQUENO (≤1024px) -------- */
+@media (max-width: 1024px) {
+
+    .container {
+        width: min(1120px, 94%);
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps-verify,
+    .signs-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .simulacao-area {
-        grid-template-columns: 1fr;
-        gap: 36px;
+        grid-template-columns: 300px 1fr;
+        gap: 32px;
+    }
+
+    .hero h1 {
+        font-size: clamp(34px, 5.5vw, 58px);
     }
 }
 
+/* -------- TABLET / CELULAR DEITADO (≤850px) -------- */
 @media (max-width: 850px) {
+
+    section {
+        padding: 60px 0;
+    }
 
     .menu-toggle {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
     }
 
     .links {
@@ -841,12 +1049,15 @@ footer {
         top: 70px;
         left: 0;
         right: 0;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
         background: #07111f;
         border-bottom: 1px solid var(--line);
         flex-direction: column;
         gap: 0;
         padding: 8px 20px 16px;
         display: none;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, .3);
     }
 
     .links.aberto {
@@ -854,21 +1065,37 @@ footer {
     }
 
     .links a {
-        padding: 12px 0;
+        padding: 14px 4px;
         border-bottom: 1px solid rgba(255, 255, 255, .06);
-    }
-
-    .hero,
-    .split {
-        grid-template-columns: 1fr;
+        font-size: 15px;
     }
 
     .hero {
-        padding-top: 40px;
+        grid-template-columns: 1fr;
+        padding-top: 36px;
+        padding-bottom: 50px;
+        min-height: auto;
+        text-align: left;
     }
 
+    /* Imagem aparece antes do texto no celular: dá contexto visual primeiro */
     .hero-img {
-        height: 320px;
+        order: -1;
+        height: 260px;
+    }
+
+    .hero p {
+        max-width: 100%;
+    }
+
+    .buttons .btn {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    .split {
+        grid-template-columns: 1fr;
+        gap: 28px;
     }
 
     .grid,
@@ -878,18 +1105,145 @@ footer {
     }
 
     .photo {
-        height: 300px;
+        height: 260px;
     }
 
     .warning {
         align-items: flex-start;
         flex-direction: column;
+        padding: 26px;
+    }
+
+    .simulacao-area {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .celular-simulacao {
+        width: min(320px, 90vw);
+        height: min(630px, 78vh);
+    }
+
+    .quiz {
+        padding: 22px;
     }
 }
 
+/* -------- CELULAR GRANDE (≤600px) -------- */
+@media (max-width: 600px) {
+
+    .container {
+        width: 92%;
+    }
+
+    section {
+        padding: 48px 0;
+    }
+
+    .section-title h2 {
+        font-size: 26px;
+    }
+
+    .hero h1 {
+        font-size: clamp(30px, 9vw, 42px);
+        line-height: 1.08;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .warning .big {
+        font-size: 38px;
+    }
+
+    .warning h2 {
+        font-size: 22px;
+    }
+
+    .quiz {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .question h3 {
+        font-size: 16px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    #btnCorrigir {
+        width: 100%;
+    }
+}
+
+/* -------- CELULAR PEQUENO (≤450px) -------- */
 @media (max-width: 450px) {
+
+    .navin {
+        height: 62px;
+    }
+
+    .brand {
+        font-size: 15px;
+    }
+
+    .hero-img {
+        height: 200px;
+        border-radius: 20px;
+    }
+
     .celular-simulacao {
-        width: 280px;
-        height: 580px;
+        width: min(260px, 84vw);
+        height: 74vh;
+        max-height: 560px;
+    }
+
+    .whatsapp-cabecalho {
+        height: 60px;
+    }
+
+    .whatsapp-conversa {
+        height: calc(100% - 112px);
+    }
+
+    .msg {
+        font-size: 12px;
+    }
+
+    .signs-list .sign {
+        padding: 14px;
+    }
+
+    .check {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+/* -------- TELAS MUITO PEQUENAS OU CELULAR DEITADO -------- */
+@media (max-width: 380px) {
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .eyebrow {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+}
+
+/* Celular na horizontal: o "telefone" da simulação não pode
+   ficar mais alto que a tela disponível. */
+@media (max-height: 500px) and (orientation: landscape) {
+    .celular-simulacao {
+        height: 80vh;
+        max-height: 420px;
     }
 }
