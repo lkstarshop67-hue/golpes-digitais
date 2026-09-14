@@ -412,6 +412,18 @@ section {
     display: block;
 }
 
+.stats-fonte {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12.5px;
+    margin: 14px 0 0;
+}
+
+.stats-fonte a {
+    color: var(--accent2);
+    text-decoration: underline;
+}
+
 /* =========================
    ANIMAÇÃO DE ENTRADA AO ROLAR
 ========================== */
