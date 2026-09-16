@@ -325,6 +325,391 @@ function reiniciarQuiz() {
 }
 
 /* =========================
+   VERIFICADOR COM IA
+========================== */
+
+// Ajuste este caminho se hospedar em outro provedor de funções serverless.
+const VERIFICADOR_ENDPOINT = "/.netlify/functions/verificar";
+const VERIFICADOR_MAX_LADO_PX = 1024; // redimensiona imagens grandes antes de enviar
+const VERIFICADOR_QUALIDADE_JPEG = 0.8;
+
+let verifImagemBase64 = null;
+let verifImagemMimeType = null;
+
+function initVerificador() {
+    const form = document.getElementById("formVerificador");
+    if (!form) return;
+
+    const abas = document.querySelectorAll(".aba-verificador");
+    const paineis = document.querySelectorAll(".painel-verificador");
+
+    abas.forEach((aba) => {
+        aba.addEventListener("click", () => {
+            abas.forEach((a) => {
+                a.classList.remove("ativa");
+                a.setAttribute("aria-selected", "false");
+            });
+            paineis.forEach((p) => p.classList.remove("ativo"));
+
+            aba.classList.add("ativa");
+            aba.setAttribute("aria-selected", "true");
+            document
+                .querySelector(`.painel-verificador[data-painel="${aba.dataset.aba}"]`)
+                ?.classList.add("ativo");
+        });
+    });
+
+    const inputImagem = document.getElementById("verifImagem");
+    const previewBox = document.getElementById("verifPreviewImagem");
+    const previewImg = document.getElementById("verifPreviewImg");
+    const btnRemoverImagem = document.getElementById("verifRemoverImagem");
+
+    if (inputImagem) {
+        inputImagem.addEventListener("change", async () => {
+            const arquivo = inputImagem.files?.[0];
+            if (!arquivo) return;
+
+            if (!arquivo.type.startsWith("image/")) {
+                mostrarErroVerificador("Envie um arquivo de imagem válido (JPG, PNG ou WebP).");
+                inputImagem.value = "";
+                return;
+            }
+
+            try {
+                const { base64, mimeType, dataUrl } = await redimensionarImagem(arquivo);
+                verifImagemBase64 = base64;
+                verifImagemMimeType = mimeType;
+
+                if (previewImg && previewBox) {
+                    previewImg.src = dataUrl;
+                    previewBox.hidden = false;
+                }
+            } catch {
+                mostrarErroVerificador("Não foi possível processar essa imagem. Tente outro arquivo.");
+            }
+        });
+    }
+
+    if (btnRemoverImagem) {
+        btnRemoverImagem.addEventListener("click", () => {
+            verifImagemBase64 = null;
+            verifImagemMimeType = null;
+            if (inputImagem) inputImagem.value = "";
+            if (previewBox) previewBox.hidden = true;
+        });
+    }
+
+    form.addEventListener("submit", enviarParaVerificacao);
+}
+
+// Redimensiona a imagem no navegador antes de enviar, pra economizar
+// dados e ficar dentro do limite da função serverless.
+function redimensionarImagem(arquivo) {
+    return new Promise((resolve, reject) => {
+        const leitor = new FileReader();
+
+        leitor.onload = () => {
+            const img = new Image();
+
+            img.onload = () => {
+                let { width, height } = img;
+                const maior = Math.max(width, height);
+
+                if (maior > VERIFICADOR_MAX_LADO_PX) {
+                    const escala = VERIFICADOR_MAX_LADO_PX / maior;
+                    width = Math.round(width * escala);
+                    height = Math.round(height * escala);
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const dataUrl = canvas.toDataURL("image/jpeg", VERIFICADOR_QUALIDADE_JPEG);
+                const base64 = dataUrl.split(",")[1];
+
+                resolve({ base64, mimeType: "image/jpeg", dataUrl });
+            };
+
+            img.onerror = () => reject(new Error("Falha ao carregar imagem."));
+            img.src = leitor.result;
+        };
+
+        leitor.onerror = () => reject(new Error("Falha ao ler arquivo."));
+        leitor.readAsDataURL(arquivo);
+    });
+}
+
+async function enviarParaVerificacao(evento) {
+    evento.preventDefault();
+
+    const texto = document.getElementById("verifTexto")?.value.trim() || "";
+    const link = document.getElementById("verifLink")?.value.trim() || "";
+
+    if (!texto && !link && !verifImagemBase64) {
+        mostrarErroVerificador("Cole um texto, um link ou envie uma imagem antes de analisar.");
+        return;
+    }
+
+    const btn = document.getElementById("btnVerificar");
+    const carregando = document.getElementById("verifCarregando");
+    const resultado = document.getElementById("verifResultado");
+
+    esconderErroVerificador();
+    if (resultado) {
+        resultado.hidden = true;
+        resultado.innerHTML = "";
+    }
+    if (btn) btn.disabled = true;
+    if (carregando) carregando.hidden = false;
+
+    try {
+        const resp = await fetch(VERIFICADOR_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                texto,
+                link,
+                imagemBase64: verifImagemBase64,
+                imagemMimeType: verifImagemMimeType,
+            }),
+        });
+
+        const dados = await resp.json();
+
+        if (!resp.ok) {
+            throw new Error(dados?.erro || "Não foi possível concluir a análise.");
+        }
+
+        renderizarResultadoVerificador(dados.analise);
+    } catch (erro) {
+        mostrarErroVerificador(
+            erro.message || "Erro ao conectar com o serviço de análise. Tente novamente."
+        );
+    } finally {
+        if (btn) btn.disabled = false;
+        if (carregando) carregando.hidden = true;
+    }
+}
+
+function renderizarResultadoVerificador(analise) {
+    const resultado = document.getElementById("verifResultado");
+    if (!resultado || !analise) return;
+
+    const nivel = ["baixo", "medio", "alto"].includes(analise.nivel_risco)
+        ? analise.nivel_risco
+        : "medio";
+
+    const rotuloNivel = {
+        baixo: "🟢 Risco baixo",
+        medio: "🟡 Risco médio — vale checar",
+        alto: "🔴 Risco alto — vários sinais de alerta",
+    }[nivel];
+
+    const listaSinais = (analise.sinais_encontrados || [])
+        .map((s) => `<li>${escaparHtml(s)}</li>`)
+        .join("") || "<li>Nenhum sinal específico identificado.</li>";
+
+    const listaPositivos = (analise.sinais_positivos || [])
+        .map((s) => `<li>${escaparHtml(s)}</li>`)
+        .join("") || "<li>Nenhum sinal adicional de confiabilidade identificado.</li>";
+
+    const listaRecomendacoes = (analise.recomendacoes || [])
+        .map((s) => `<li>${escaparHtml(s)}</li>`)
+        .join("") || "<li>Use agências de checagem como Aos Fatos ou Lupa.</li>";
+
+    resultado.innerHTML = `
+        <span class="verif-nivel ${nivel}">${rotuloNivel}</span>
+        <p class="verif-resumo">${escaparHtml(analise.resumo || "")}</p>
+
+        <div class="verif-colunas">
+            <div class="verif-bloco">
+                <h4>🚩 Sinais de atenção</h4>
+                <ul>${listaSinais}</ul>
+            </div>
+            <div class="verif-bloco">
+                <h4>✅ Sinais de confiabilidade</h4>
+                <ul>${listaPositivos}</ul>
+            </div>
+        </div>
+
+        <div class="verif-bloco" style="margin-bottom:18px;">
+            <h4>🔎 O que fazer agora</h4>
+            <ul>${listaRecomendacoes}</ul>
+        </div>
+
+        <p class="verif-aviso">${escaparHtml(
+            analise.aviso ||
+                "Esta análise é um apoio educativo gerado por IA e não substitui a checagem em fontes oficiais."
+        )}</p>
+    `;
+
+    resultado.hidden = false;
+    resultado.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function mostrarErroVerificador(mensagem) {
+    const erro = document.getElementById("verifErro");
+    if (!erro) return;
+    erro.textContent = mensagem;
+    erro.hidden = false;
+}
+
+function esconderErroVerificador() {
+    const erro = document.getElementById("verifErro");
+    if (!erro) return;
+    erro.hidden = true;
+    erro.textContent = "";
+}
+
+function escaparHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+/* =========================
+   CHATBOT FLUTUANTE
+========================== */
+
+const CHAT_ENDPOINT = "/.netlify/functions/chat";
+let chatHistorico = []; // { role: "user" | "assistant", content: string }
+let chatAbertoUmaVez = false;
+
+function initChatBot() {
+    const toggle = document.getElementById("chatToggle");
+    const painel = document.getElementById("chatPainel");
+    const fechar = document.getElementById("chatFechar");
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("chatInput");
+
+    if (!toggle || !painel || !form || !input) return;
+
+    toggle.addEventListener("click", () => {
+        const abrindo = painel.hidden;
+        painel.hidden = !abrindo;
+        toggle.setAttribute("aria-expanded", abrindo ? "true" : "false");
+
+        if (abrindo) {
+            if (!chatAbertoUmaVez) {
+                chatAbertoUmaVez = true;
+                adicionarMensagemChat(
+                    "assistente",
+                    "Oi! 👋 Sou o assistente do site. Pode perguntar sobre golpes, Pix, WhatsApp, fake news ou colar uma mensagem suspeita que eu te ajudo a analisar os sinais."
+                );
+            }
+            input.focus();
+        }
+    });
+
+    if (fechar) {
+        fechar.addEventListener("click", () => {
+            painel.hidden = true;
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.focus();
+        });
+    }
+
+    // Cresce a caixa de texto conforme o usuário digita, até um limite (feito via CSS max-height)
+    input.addEventListener("input", () => {
+        input.style.height = "auto";
+        input.style.height = `${input.scrollHeight}px`;
+    });
+
+    // Enter envia, Shift+Enter quebra linha
+    input.addEventListener("keydown", (evento) => {
+        if (evento.key === "Enter" && !evento.shiftKey) {
+            evento.preventDefault();
+            form.requestSubmit();
+        }
+    });
+
+    form.addEventListener("submit", enviarMensagemChat);
+}
+
+async function enviarMensagemChat(evento) {
+    evento.preventDefault();
+
+    const input = document.getElementById("chatInput");
+    const botaoEnviar = document.getElementById("chatEnviar");
+    if (!input) return;
+
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    adicionarMensagemChat("usuario", texto);
+    chatHistorico.push({ role: "user", content: texto });
+
+    input.value = "";
+    input.style.height = "auto";
+    if (botaoEnviar) botaoEnviar.disabled = true;
+
+    const idCarregando = mostrarCarregandoChat();
+
+    try {
+        const resp = await fetch(CHAT_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mensagens: chatHistorico }),
+        });
+
+        const dados = await resp.json();
+        removerCarregandoChat(idCarregando);
+
+        if (!resp.ok) {
+            throw new Error(dados?.erro || "Não foi possível responder agora.");
+        }
+
+        adicionarMensagemChat("assistente", dados.resposta);
+        chatHistorico.push({ role: "assistant", content: dados.resposta });
+    } catch (erro) {
+        removerCarregandoChat(idCarregando);
+        adicionarMensagemChat(
+            "erro",
+            erro.message || "Erro ao conectar com o assistente. Tente novamente."
+        );
+    } finally {
+        if (botaoEnviar) botaoEnviar.disabled = false;
+        input.focus();
+    }
+}
+
+function adicionarMensagemChat(tipo, texto) {
+    const container = document.getElementById("chatMensagens");
+    if (!container) return;
+
+    const balao = document.createElement("div");
+    balao.className = `chat-msg ${tipo}`;
+    balao.textContent = texto;
+
+    container.appendChild(balao);
+    container.scrollTop = container.scrollHeight;
+}
+
+function mostrarCarregandoChat() {
+    const container = document.getElementById("chatMensagens");
+    if (!container) return null;
+
+    const balao = document.createElement("div");
+    balao.className = "chat-msg carregando";
+    balao.textContent = "Digitando...";
+    balao.id = `chat-carregando-${Date.now()}`;
+
+    container.appendChild(balao);
+    container.scrollTop = container.scrollHeight;
+
+    return balao.id;
+}
+
+function removerCarregandoChat(id) {
+    if (!id) return;
+    document.getElementById(id)?.remove();
+}
+
+/* =========================
    INICIALIZAÇÃO
 ========================== */
 
@@ -335,4 +720,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initContadores();
     initReveal();
     initQuiz();
+    initVerificador();
+    initChatBot();
 });

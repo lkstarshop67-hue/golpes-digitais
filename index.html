@@ -36,6 +36,7 @@
                 <a href="#prevencao">Prevenção</a>
                 <a href="#whatsapp">WhatsApp</a>
                 <a href="#pix">Pix</a>
+                <a href="#verificador">Verificador IA</a>
                 <a href="#quiz">Quiz</a>
             </div>
 
@@ -505,6 +506,75 @@
         </section>
 
         <!-- =========================
+             VERIFICADOR COM IA
+        ========================== -->
+
+        <section id="verificador">
+            <div class="container">
+
+                <div class="section-title reveal">
+                    <h2>Verificador com IA: analise antes de acreditar</h2>
+                    <p>
+                        Cole um texto, um link ou envie um print. A IA aponta possíveis
+                        sinais de golpe ou desinformação e sugere como confirmar por
+                        conta própria — ela é um apoio para o método
+                        <strong>PARE, PENSE e CONFIRME</strong>, não um veredito final.
+                    </p>
+                </div>
+
+                <div class="verificador-box reveal">
+
+                    <div class="verificador-abas" role="tablist" aria-label="Tipo de conteúdo a analisar">
+                        <button type="button" class="aba-verificador ativa" data-aba="texto" role="tab" aria-selected="true">📝 Texto</button>
+                        <button type="button" class="aba-verificador" data-aba="link" role="tab" aria-selected="false">🔗 Link</button>
+                        <button type="button" class="aba-verificador" data-aba="imagem" role="tab" aria-selected="false">🖼️ Print / Imagem</button>
+                    </div>
+
+                    <form id="formVerificador">
+
+                        <div class="painel-verificador ativo" data-painel="texto">
+                            <label for="verifTexto">Cole a mensagem ou notícia</label>
+                            <textarea id="verifTexto" name="verifTexto" rows="6"
+                                placeholder="Ex.: URGENTE! Você ganhou um prêmio, clique aqui antes que expire..."></textarea>
+                        </div>
+
+                        <div class="painel-verificador" data-painel="link">
+                            <label for="verifLink">Cole o link da notícia ou mensagem</label>
+                            <input type="url" id="verifLink" name="verifLink" placeholder="https://exemplo.com/noticia">
+                        </div>
+
+                        <div class="painel-verificador" data-painel="imagem">
+                            <label for="verifImagem">Envie um print ou foto (JPG/PNG, até 4MB)</label>
+                            <input type="file" id="verifImagem" name="verifImagem" accept="image/png, image/jpeg, image/webp">
+                            <div class="verif-preview-imagem" id="verifPreviewImagem" hidden>
+                                <img id="verifPreviewImg" alt="Pré-visualização da imagem enviada">
+                                <button type="button" id="verifRemoverImagem" class="btn">Remover imagem</button>
+                            </div>
+                        </div>
+
+                        <p class="verif-obs">
+                            Você pode combinar mais de uma aba (ex.: colar o texto <em>e</em> enviar o print).
+                        </p>
+
+                        <button class="btn primary" id="btnVerificar" type="submit">Analisar com IA</button>
+
+                        <div id="verifCarregando" class="verif-carregando" hidden>
+                            <span class="verif-spinner" aria-hidden="true"></span>
+                            Analisando sinais de risco...
+                        </div>
+
+                        <div id="verifErro" class="verif-erro" role="alert" hidden></div>
+
+                    </form>
+
+                    <div id="verifResultado" class="verif-resultado" aria-live="polite" hidden></div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =========================
              AVISO GERAL
         ========================== -->
 
@@ -631,6 +701,53 @@
             <div class="small">EJA • Juazeiro do Norte – CE • Material educativo</div>
         </div>
     </footer>
+
+    <!-- =========================
+         CHATBOT FLUTUANTE
+    ========================== -->
+
+    <div id="chatWidget" class="chat-widget">
+
+        <button
+            type="button"
+            id="chatToggle"
+            class="chat-bolha"
+            aria-expanded="false"
+            aria-controls="chatPainel"
+            aria-label="Abrir assistente virtual sobre segurança digital"
+        >
+            <span class="chat-bolha-icone" aria-hidden="true">💬</span>
+        </button>
+
+        <div id="chatPainel" class="chat-painel" role="dialog" aria-labelledby="chatTitulo" hidden>
+
+            <div class="chat-cabecalho">
+                <div>
+                    <strong id="chatTitulo">Assistente de Segurança Digital</strong>
+                    <span class="chat-subtitulo">Tire dúvidas sobre golpes e fake news</span>
+                </div>
+                <button type="button" id="chatFechar" class="chat-fechar" aria-label="Fechar assistente">✕</button>
+            </div>
+
+            <div id="chatMensagens" class="chat-mensagens" aria-live="polite"></div>
+
+            <form id="chatForm" class="chat-form">
+                <label for="chatInput" class="sr-only">Digite sua pergunta</label>
+                <textarea
+                    id="chatInput"
+                    name="chatInput"
+                    rows="1"
+                    placeholder="Pergunte algo, ex.: recebi um Pix estranho, o que faço?"
+                    maxlength="1200"
+                ></textarea>
+                <button type="submit" class="chat-enviar" id="chatEnviar" aria-label="Enviar pergunta">➤</button>
+            </form>
+
+            <p class="chat-aviso">Respostas geradas por IA podem conter erros — não substituem checagem oficial.</p>
+
+        </div>
+
+    </div>
 
     <script src="script.js"></script>
 </body>

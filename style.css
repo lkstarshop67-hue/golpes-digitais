@@ -1016,6 +1016,410 @@ footer {
     min-height: 44px;
 }
 
+/* =========================
+   VERIFICADOR COM IA
+========================== */
+
+.verificador-box {
+    background: linear-gradient(180deg, #10253b, #0c1d30);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+}
+
+.verificador-abas {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.aba-verificador {
+    background: #0e2136;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.aba-verificador:hover {
+    color: var(--text);
+}
+
+.aba-verificador.ativa {
+    background: var(--accent);
+    color: #06201c;
+    border-color: var(--accent);
+}
+
+.painel-verificador {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.painel-verificador.ativo {
+    display: flex;
+}
+
+.painel-verificador label {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.painel-verificador textarea,
+.painel-verificador input[type="url"],
+.painel-verificador input[type="file"] {
+    width: 100%;
+    background: #0a1727;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    padding: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+}
+
+.painel-verificador textarea:focus,
+.painel-verificador input:focus {
+    outline: 3px solid var(--accent2);
+    outline-offset: 2px;
+}
+
+.verif-preview-imagem {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.verif-preview-imagem img {
+    max-width: 140px;
+    max-height: 140px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    object-fit: cover;
+}
+
+.verif-obs {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 18px;
+}
+
+.verif-carregando {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.verif-spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid var(--line);
+    border-top-color: var(--accent);
+    animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+.verif-erro {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(255, 100, 124, .12);
+    border: 1px solid var(--danger);
+    color: var(--text);
+    font-weight: 600;
+}
+
+.verif-resultado {
+    margin-top: 26px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+}
+
+.verif-nivel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.verif-nivel.baixo {
+    background: rgba(36, 209, 181, .15);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.verif-nivel.medio {
+    background: rgba(255, 207, 92, .15);
+    color: var(--warn);
+    border: 1px solid var(--warn);
+}
+
+.verif-nivel.alto {
+    background: rgba(255, 100, 124, .15);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.verif-resumo {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.verif-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.verif-bloco h4 {
+    margin: 0 0 10px;
+    font-size: 15px;
+}
+
+.verif-bloco ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.verif-aviso {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    border-top: 1px dashed var(--line);
+    padding-top: 14px;
+}
+
+/* =========================
+   ACESSIBILIDADE: TEXTO SÓ PARA LEITOR DE TELA
+========================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =========================
+   CHATBOT FLUTUANTE
+========================== */
+
+.chat-widget {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+}
+
+.chat-bolha {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+.chat-bolha:hover {
+    transform: scale(1.06);
+}
+
+.chat-painel {
+    position: fixed;
+    right: 20px;
+    bottom: 92px;
+    width: min(360px, calc(100vw - 40px));
+    height: min(520px, calc(100vh - 140px));
+    background: linear-gradient(180deg, #10253b, #0c1d30);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(7, 17, 31, .6);
+}
+
+.chat-cabecalho strong {
+    display: block;
+    font-size: 15px;
+}
+
+.chat-subtitulo {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.chat-fechar {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 4px;
+}
+
+.chat-fechar:hover {
+    color: var(--text);
+}
+
+.chat-mensagens {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-msg {
+    max-width: 88%;
+    padding: 10px 13px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.chat-msg.usuario {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #06201c;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-msg.assistente {
+    align-self: flex-start;
+    background: #0e2136;
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 4px;
+}
+
+.chat-msg.erro {
+    align-self: flex-start;
+    background: rgba(255, 100, 124, .12);
+    border: 1px solid var(--danger);
+}
+
+.chat-msg.carregando {
+    align-self: flex-start;
+    background: #0e2136;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-style: italic;
+}
+
+.chat-form {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--line);
+}
+
+.chat-form textarea {
+    flex: 1;
+    resize: none;
+    max-height: 90px;
+    background: #0a1727;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.chat-form textarea:focus {
+    outline: 3px solid var(--accent2);
+    outline-offset: 2px;
+}
+
+.chat-enviar {
+    width: 42px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    color: #06201c;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.chat-enviar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.chat-aviso {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    padding: 6px 10px 10px;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .chat-widget {
+        right: 14px;
+        bottom: 14px;
+    }
+
+    .chat-painel {
+        right: 14px;
+        bottom: 84px;
+        width: calc(100vw - 28px);
+        height: min(70vh, 560px);
+    }
+}
+
 /* -------- TABLET GRANDE / NOTEBOOK PEQUENO (≤1024px) -------- */
 @media (max-width: 1024px) {
 
@@ -1160,6 +1564,15 @@ footer {
 
 /* -------- CELULAR GRANDE (≤600px) -------- */
 @media (max-width: 600px) {
+
+    .verif-colunas {
+        grid-template-columns: 1fr;
+    }
+
+    .verificador-box {
+        padding: 20px;
+    }
+
 
     .container {
         width: 92%;
