@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#07111f">
-    <title>Como Evitar Golpes Digitais e Fake News | EJA</title>
+    <title>Como Evitar Golpes Digitais e Fake News</title>
     <meta name="description"
           content="Material educativo sobre fake news, golpes digitais, WhatsApp, Pix e segurança na internet, com simulação prática e quiz.">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Como Evitar Golpes Digitais e Fake News">
+    <meta property="og:description" content="Material educativo sobre fake news, golpes digitais, WhatsApp, Pix e segurança na internet, com simulação prática e quiz.">
+    <meta property="og:image" content="imagens/imagem2.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -36,7 +46,6 @@
                 <a href="#prevencao">Prevenção</a>
                 <a href="#whatsapp">WhatsApp</a>
                 <a href="#pix">Pix</a>
-                <a href="#verificador">Verificador IA</a>
                 <a href="#quiz">Quiz</a>
             </div>
 
@@ -48,7 +57,7 @@
         <header class="container hero">
 
             <div>
-                <div class="eyebrow">PROJETO DE EXTENSÃO • EJA</div>
+                <div class="eyebrow">PROJETO DE EXTENSÃO • EDUCAÇÃO DIGITAL</div>
 
                 <h1>
                     Como não cair em
@@ -66,6 +75,7 @@
                 <div class="buttons">
                     <a class="btn primary" href="#fakenews">Começar a aprender</a>
                     <a class="btn" href="#quiz">Testar meus conhecimentos</a>
+                    <button class="btn" id="btnImprimir" type="button">🖨️ Imprimir / Salvar PDF</button>
                 </div>
             </div>
 
@@ -91,7 +101,7 @@
                 </div>
             </div>
             <p class="stats-fonte">
-                Fonte: <a href="https://www.cnnbrasil.com.br/nacional/brasil/golpes-digitais-brasil-teve-34-bilhoes-de-tentativas-em-2025/" target="_blank" rel="noopener noreferrer">GASA Brasil — relatório "O Estado dos Golpes no Brasil 2026"</a>
+                Fonte: <a href="https://canaltech.com.br/seguranca/8-em-cada-10-brasileiros-adultos-ja-sofreram-tentativas-de-golpes-diz-pesquisa" target="_blank" rel="noopener noreferrer">Global Anti-Scam Alliance (GASA) — relatório "O Estado dos Golpes no Brasil 2026"</a>
             </p>
         </div>
 
@@ -297,7 +307,7 @@
             <div class="container split">
 
                 <div class="photo">
-                    <img src="imagens/Imagem02.png" alt="Pessoa usando computador com atenção">
+                    <img src="imagens/Imagem02.png" alt="Pessoa usando computador com atenção" loading="lazy">
                 </div>
 
                 <div>
@@ -499,76 +509,7 @@
                 </div>
 
                 <div class="photo">
-                    <img src="imagens/PIX01.png" alt="Celular com aplicativo de pagamento aberto">
-                </div>
-
-            </div>
-        </section>
-
-        <!-- =========================
-             VERIFICADOR COM IA
-        ========================== -->
-
-        <section id="verificador">
-            <div class="container">
-
-                <div class="section-title reveal">
-                    <h2>Verificador com IA: analise antes de acreditar</h2>
-                    <p>
-                        Cole um texto, um link ou envie um print. A IA aponta possíveis
-                        sinais de golpe ou desinformação e sugere como confirmar por
-                        conta própria — ela é um apoio para o método
-                        <strong>PARE, PENSE e CONFIRME</strong>, não um veredito final.
-                    </p>
-                </div>
-
-                <div class="verificador-box reveal">
-
-                    <div class="verificador-abas" role="tablist" aria-label="Tipo de conteúdo a analisar">
-                        <button type="button" class="aba-verificador ativa" data-aba="texto" role="tab" aria-selected="true">📝 Texto</button>
-                        <button type="button" class="aba-verificador" data-aba="link" role="tab" aria-selected="false">🔗 Link</button>
-                        <button type="button" class="aba-verificador" data-aba="imagem" role="tab" aria-selected="false">🖼️ Print / Imagem</button>
-                    </div>
-
-                    <form id="formVerificador">
-
-                        <div class="painel-verificador ativo" data-painel="texto">
-                            <label for="verifTexto">Cole a mensagem ou notícia</label>
-                            <textarea id="verifTexto" name="verifTexto" rows="6"
-                                placeholder="Ex.: URGENTE! Você ganhou um prêmio, clique aqui antes que expire..."></textarea>
-                        </div>
-
-                        <div class="painel-verificador" data-painel="link">
-                            <label for="verifLink">Cole o link da notícia ou mensagem</label>
-                            <input type="url" id="verifLink" name="verifLink" placeholder="https://exemplo.com/noticia">
-                        </div>
-
-                        <div class="painel-verificador" data-painel="imagem">
-                            <label for="verifImagem">Envie um print ou foto (JPG/PNG, até 4MB)</label>
-                            <input type="file" id="verifImagem" name="verifImagem" accept="image/png, image/jpeg, image/webp">
-                            <div class="verif-preview-imagem" id="verifPreviewImagem" hidden>
-                                <img id="verifPreviewImg" alt="Pré-visualização da imagem enviada">
-                                <button type="button" id="verifRemoverImagem" class="btn">Remover imagem</button>
-                            </div>
-                        </div>
-
-                        <p class="verif-obs">
-                            Você pode combinar mais de uma aba (ex.: colar o texto <em>e</em> enviar o print).
-                        </p>
-
-                        <button class="btn primary" id="btnVerificar" type="submit">Analisar com IA</button>
-
-                        <div id="verifCarregando" class="verif-carregando" hidden>
-                            <span class="verif-spinner" aria-hidden="true"></span>
-                            Analisando sinais de risco...
-                        </div>
-
-                        <div id="verifErro" class="verif-erro" role="alert" hidden></div>
-
-                    </form>
-
-                    <div id="verifResultado" class="verif-resultado" aria-live="polite" hidden></div>
-
+                    <img src="imagens/PIX01.png" alt="Celular com aplicativo de pagamento aberto" loading="lazy">
                 </div>
 
             </div>
@@ -609,8 +550,8 @@
                         <div class="quiz-progress-fill" id="quizProgressoBarra"></div>
                     </div>
 
-                    <div class="question">
-                        <h3>1. Você recebe: "URGENTE! Sua conta bancária será bloqueada. Clique aqui para regularizar imediatamente." O que fazer?</h3>
+                    <fieldset class="question">
+                        <legend>1. Você recebe: "URGENTE! Sua conta bancária será bloqueada. Clique aqui para regularizar imediatamente." O que fazer?</legend>
 
                         <label class="option">
                             <input type="radio" name="q1" value="0">
@@ -621,10 +562,10 @@
                             <input type="radio" name="q1" value="1">
                             Parar, analisar e confirmar pelo canal oficial.
                         </label>
-                    </div>
+                    </fieldset>
 
-                    <div class="question">
-                        <h3>2. Uma pessoa pede seu código recebido por SMS. Você deve enviar?</h3>
+                    <fieldset class="question">
+                        <legend>2. Uma pessoa pede seu código recebido por SMS. Você deve enviar?</legend>
 
                         <label class="option">
                             <input type="radio" name="q2" value="0">
@@ -635,10 +576,10 @@
                             <input type="radio" name="q2" value="1">
                             Não. O código não deve ser compartilhado.
                         </label>
-                    </div>
+                    </fieldset>
 
-                    <div class="question">
-                        <h3>3. Antes de fazer um Pix, qual atitude é mais segura?</h3>
+                    <fieldset class="question">
+                        <legend>3. Antes de fazer um Pix, qual atitude é mais segura?</legend>
 
                         <label class="option">
                             <input type="radio" name="q3" value="1">
@@ -649,10 +590,10 @@
                             <input type="radio" name="q3" value="0">
                             Fazer logo para não perder a oportunidade.
                         </label>
-                    </div>
+                    </fieldset>
 
-                    <div class="question">
-                        <h3>4. Você vê uma notícia chocante em um grupo de WhatsApp, sem fonte, sem data e que nenhum jornal noticiou. O que isso indica?</h3>
+                    <fieldset class="question">
+                        <legend>4. Você vê uma notícia chocante em um grupo de WhatsApp, sem fonte, sem data e que nenhum jornal noticiou. O que isso indica?</legend>
 
                         <label class="option">
                             <input type="radio" name="q4" value="1">
@@ -663,10 +604,10 @@
                             <input type="radio" name="q4" value="0">
                             Se está circulando bastante, deve ser verdade.
                         </label>
-                    </div>
+                    </fieldset>
 
-                    <div class="question">
-                        <h3>5. Qual característica é um sinal comum de fake news?</h3>
+                    <fieldset class="question">
+                        <legend>5. Qual característica é um sinal comum de fake news?</legend>
 
                         <label class="option">
                             <input type="radio" name="q5" value="1">
@@ -677,7 +618,7 @@
                             <input type="radio" name="q5" value="0">
                             Texto assinado por um repórter, com data e fonte citada.
                         </label>
-                    </div>
+                    </fieldset>
 
                     <button class="btn primary" id="btnCorrigir" type="button">Ver resultado</button>
 
@@ -698,56 +639,9 @@
     <footer>
         <div class="container">
             <strong>Projeto de Extensão • Sistemas de Informação</strong>
-            <div class="small">EJA • Juazeiro do Norte – CE • Material educativo</div>
+            <div class="small">Juazeiro do Norte – CE • Material educativo sobre segurança digital</div>
         </div>
     </footer>
-
-    <!-- =========================
-         CHATBOT FLUTUANTE
-    ========================== -->
-
-    <div id="chatWidget" class="chat-widget">
-
-        <button
-            type="button"
-            id="chatToggle"
-            class="chat-bolha"
-            aria-expanded="false"
-            aria-controls="chatPainel"
-            aria-label="Abrir assistente virtual sobre segurança digital"
-        >
-            <span class="chat-bolha-icone" aria-hidden="true">💬</span>
-        </button>
-
-        <div id="chatPainel" class="chat-painel" role="dialog" aria-labelledby="chatTitulo" hidden>
-
-            <div class="chat-cabecalho">
-                <div>
-                    <strong id="chatTitulo">Assistente de Segurança Digital</strong>
-                    <span class="chat-subtitulo">Tire dúvidas sobre golpes e fake news</span>
-                </div>
-                <button type="button" id="chatFechar" class="chat-fechar" aria-label="Fechar assistente">✕</button>
-            </div>
-
-            <div id="chatMensagens" class="chat-mensagens" aria-live="polite"></div>
-
-            <form id="chatForm" class="chat-form">
-                <label for="chatInput" class="sr-only">Digite sua pergunta</label>
-                <textarea
-                    id="chatInput"
-                    name="chatInput"
-                    rows="1"
-                    placeholder="Pergunte algo, ex.: recebi um Pix estranho, o que faço?"
-                    maxlength="1200"
-                ></textarea>
-                <button type="submit" class="chat-enviar" id="chatEnviar" aria-label="Enviar pergunta">➤</button>
-            </form>
-
-            <p class="chat-aviso">Respostas geradas por IA podem conter erros — não substituem checagem oficial.</p>
-
-        </div>
-
-    </div>
 
     <script src="script.js"></script>
 </body>
