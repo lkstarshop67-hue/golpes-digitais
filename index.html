@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#07111f">
+    <meta name="theme-color" content="#0a0d12">
     <title>Como Evitar Golpes Digitais e Fake News</title>
     <meta name="description"
           content="Material educativo sobre fake news, golpes digitais, WhatsApp, Pix e segurança na internet, com simulação prática e quiz.">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
     <meta property="og:type" content="website">
     <meta property="og:title" content="Como Evitar Golpes Digitais e Fake News">
     <meta property="og:description" content="Material educativo sobre fake news, golpes digitais, WhatsApp, Pix e segurança na internet, com simulação prática e quiz.">
-    <meta property="og:image" content="imagens/imagem2.png">
     <meta property="og:locale" content="pt_BR">
     <meta name="twitter:card" content="summary_large_image">
 
@@ -57,7 +60,7 @@
         <header class="container hero">
 
             <div>
-                <div class="eyebrow">PROJETO DE EXTENSÃO • EDUCAÇÃO DIGITAL</div>
+                <p class="eyebrow">// projeto de extensão — educação digital</p>
 
                 <h1>
                     Como não cair em
@@ -75,12 +78,25 @@
                 <div class="buttons">
                     <a class="btn primary" href="#fakenews">Começar a aprender</a>
                     <a class="btn" href="#quiz">Testar meus conhecimentos</a>
-                    <button class="btn" id="btnImprimir" type="button">🖨️ Imprimir / Salvar PDF</button>
                 </div>
             </div>
 
-            <div class="hero-img">
-                <img src="imagens/imagem2.png" alt="Estudantes aprendendo em grupo sobre segurança digital">
+            <div class="hero-selo" aria-hidden="true">
+                <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Selo de verificação: pare, pense, confirme">
+                    <defs>
+                        <path id="selo-caminho" d="M 160,160 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"></path>
+                    </defs>
+                    <circle cx="160" cy="160" r="140" class="selo-anel-fora"></circle>
+                    <circle cx="160" cy="160" r="118" class="selo-anel-dentro"></circle>
+                    <text class="selo-texto-curvo">
+                        <textPath href="#selo-caminho" startOffset="0%">PARE • PENSE • CONFIRME • PARE • PENSE • CONFIRME •</textPath>
+                    </text>
+                    <g class="selo-lupa">
+                        <circle cx="148" cy="148" r="42"></circle>
+                        <line x1="178" y1="178" x2="214" y2="214"></line>
+                    </g>
+                    <path class="selo-check" d="M130 150 L150 170 L194 122"></path>
+                </svg>
             </div>
 
         </header>
@@ -168,6 +184,14 @@
                         <div>
                             <h4>Pede compartilhamento urgente</h4>
                             <p>Frases como "compartilhe antes que apaguem" pressionam a espalhar sem checar.</p>
+                        </div>
+                    </div>
+
+                    <div class="sign">
+                        <div class="icon">🤖</div>
+                        <div>
+                            <h4>Imagem ou vídeo gerado por IA</h4>
+                            <p>Mãos com dedos a mais, movimentos de boca estranhos, luz ou sombra inconsistente e pele "lisa demais" são sinais de conteúdo sintético.</p>
                         </div>
                     </div>
 
@@ -306,8 +330,16 @@
         <section id="prevencao">
             <div class="container split">
 
-                <div class="photo">
-                    <img src="imagens/Imagem02.png" alt="Pessoa usando computador com atenção" loading="lazy">
+                <div class="ilustracao" aria-hidden="true">
+                    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                        <polygon class="ilustracao-octogono" points="112,20 208,20 300,112 300,208 208,300 112,300 20,208 20,112"></polygon>
+                        <circle cx="160" cy="160" r="70" class="ilustracao-mostrador"></circle>
+                        <line x1="160" y1="160" x2="160" y2="112" class="ilustracao-ponteiro"></line>
+                        <line x1="160" y1="160" x2="194" y2="172" class="ilustracao-ponteiro"></line>
+                        <circle cx="160" cy="160" r="5" class="ilustracao-centro"></circle>
+                        <line x1="90" y1="246" x2="118" y2="246" class="ilustracao-pausa"></line>
+                        <line x1="202" y1="246" x2="230" y2="246" class="ilustracao-pausa"></line>
+                    </svg>
                 </div>
 
                 <div>
@@ -343,37 +375,37 @@
 
                 <div class="grid">
                     <div class="card">
-                        <div class="num">01</div>
+                        <div class="card-icone" aria-hidden="true">🔐</div>
                         <h3>Verificação em duas etapas</h3>
                         <p>Ative a verificação em duas etapas.</p>
                     </div>
 
                     <div class="card">
-                        <div class="num">02</div>
+                        <div class="card-icone" aria-hidden="true">🚫</div>
                         <h3>Nunca compartilhe códigos</h3>
                         <p>Não compartilhe códigos recebidos por SMS.</p>
                     </div>
 
                     <div class="card">
-                        <div class="num">03</div>
+                        <div class="card-icone" aria-hidden="true">👀</div>
                         <h3>Desconfie do inesperado</h3>
                         <p>Tenha cuidado com mensagens inesperadas.</p>
                     </div>
 
                     <div class="card">
-                        <div class="num">04</div>
+                        <div class="card-icone" aria-hidden="true">⛔</div>
                         <h3>Bloqueie</h3>
                         <p>Bloqueie contatos suspeitos.</p>
                     </div>
 
                     <div class="card">
-                        <div class="num">05</div>
+                        <div class="card-icone" aria-hidden="true">🚨</div>
                         <h3>Denuncie</h3>
                         <p>Use a função de denúncia quando necessário.</p>
                     </div>
 
                     <div class="card">
-                        <div class="num">06</div>
+                        <div class="card-icone" aria-hidden="true">🔒</div>
                         <h3>Privacidade</h3>
                         <p>Revise suas configurações de privacidade.</p>
                     </div>
@@ -508,8 +540,17 @@
                     </div>
                 </div>
 
-                <div class="photo">
-                    <img src="imagens/PIX01.png" alt="Celular com aplicativo de pagamento aberto" loading="lazy">
+                <div class="ilustracao" aria-hidden="true">
+                    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="96" y="30" width="128" height="260" rx="20" class="ilustracao-celular"></rect>
+                        <rect x="114" y="62" width="92" height="150" rx="6" class="ilustracao-tela"></rect>
+                        <line x1="128" y1="86" x2="192" y2="86" class="ilustracao-linha"></line>
+                        <line x1="128" y1="106" x2="178" y2="106" class="ilustracao-linha"></line>
+                        <line x1="128" y1="126" x2="192" y2="126" class="ilustracao-linha"></line>
+                        <circle cx="160" cy="170" r="22" class="ilustracao-selo-ok"></circle>
+                        <path d="M150 170 L158 178 L172 162" class="ilustracao-check"></path>
+                        <line x1="140" y1="248" x2="180" y2="248" class="ilustracao-botao"></line>
+                    </svg>
                 </div>
 
             </div>
@@ -638,8 +679,13 @@
 
     <footer>
         <div class="container">
-            <strong>Projeto de Extensão • Sistemas de Informação</strong>
-            <div class="small">Juazeiro do Norte – CE • Material educativo sobre segurança digital</div>
+            <p class="footer-sobre">
+                Este material foi produzido como projeto de extensão do curso de
+                Sistemas de Informação e pode ser reutilizado livremente em aulas,
+                oficinas e apresentações sobre segurança digital.
+            </p>
+            <strong>Projeto de Extensão — Sistemas de Informação</strong>
+            <div class="small">Juazeiro do Norte, CE</div>
         </div>
     </footer>
 

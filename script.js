@@ -325,19 +325,6 @@ function reiniciarQuiz() {
 }
 
 /* =========================
-   IMPRESSÃO / SALVAR PDF
-========================== */
-
-function initImpressao() {
-    const botao = document.getElementById("btnImprimir");
-    if (!botao) return;
-
-    botao.addEventListener("click", () => {
-        window.print();
-    });
-}
-
-/* =========================
    INICIALIZAÇÃO
 ========================== */
 
@@ -348,5 +335,4 @@ document.addEventListener("DOMContentLoaded", () => {
     initContadores();
     initReveal();
     initQuiz();
-    initImpressao();
 });
