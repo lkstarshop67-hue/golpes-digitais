@@ -18,12 +18,11 @@
     --text: #eef0f3;
     --muted: #96a0ab;
 
-    --accent: #d6a24a;
-    --accent-ink: #261d09;
-    --accent2: #6c9bd1;
-    --danger: #e2655f;
-    --ok: #5fae84;
-    --warn: #e3b765;
+    --accent: #24d1b5;
+    --accent-ink: #06201c;
+    --accent2: #48a7ff;
+    --danger: #ff647c;
+    --warn: #ffcf5c;
 
     --shadow: 0 20px 48px rgba(0, 0, 0, .38);
     --radius: 10px;
@@ -350,6 +349,36 @@ section {
     margin: 0;
 }
 
+.card-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+    word-break: break-word;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.card-links {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-links a {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+}
+
+.card-links a:hover {
+    text-decoration: underline;
+}
+
 /* Tag monoespaçada no topo dos cards (ex.: "FALSO FAMILIAR", "PHISHING") —
    funciona como etiqueta de categoria, no estilo de uma ficha. */
 .num {
@@ -359,7 +388,7 @@ section {
     font-weight: 600;
     letter-spacing: .04em;
     color: var(--accent);
-    background: rgba(214, 162, 74, .12);
+    background: rgba(36, 209, 181, .12);
     padding: 3px 8px;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -553,13 +582,13 @@ section {
 
 .ilustracao-selo-ok {
     fill: none;
-    stroke: var(--ok);
+    stroke: var(--accent);
     stroke-width: 4;
 }
 
 .ilustracao-check {
     fill: none;
-    stroke: var(--ok);
+    stroke: var(--accent);
     stroke-width: 5;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -979,18 +1008,23 @@ section {
 }
 
 .question {
-    padding: 20px 0;
-    border-bottom: 1px solid var(--line);
+    /* uma pergunta por vez: só a ".ativa" aparece */
+    display: none;
+    padding: 6px 0 14px;
     /* reset do estilo padrão de <fieldset> do navegador */
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
+    border: 0;
     margin: 0;
     min-width: 0;
 }
 
-.question:last-of-type {
-    border-bottom: 0;
+.question.ativa {
+    display: block;
+    animation: perguntaEntra .35s ease;
+}
+
+@keyframes perguntaEntra {
+    from { opacity: 0; transform: translateX(18px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 .question legend {
@@ -1019,6 +1053,53 @@ section {
 
 .option input {
     margin-right: 8px;
+}
+
+/* Depois de responder: a resposta fica travada e o feedback é imediato */
+.option.travada {
+    cursor: default;
+}
+
+.option.correta {
+    border-color: var(--accent);
+    background: rgba(36, 209, 181, .1);
+    color: var(--text);
+}
+
+.option.incorreta {
+    border-color: var(--danger);
+    background: rgba(255, 100, 124, .1);
+    color: var(--text);
+}
+
+.question-feedback {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.question-feedback.visivel {
+    display: block;
+    animation: perguntaEntra .3s ease;
+}
+
+.question-feedback .veredito {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.question-feedback .veredito.certo {
+    color: var(--accent);
+}
+
+.question-feedback .veredito.errado {
+    color: var(--danger);
 }
 
 /* Marcação visual da resposta escolhida (dado ao vivo, dinamismo) */
@@ -1058,7 +1139,7 @@ section {
 }
 
 .review-item.certo .review-icon {
-    color: var(--ok);
+    color: var(--accent);
 }
 
 .review-item.errado .review-icon {
@@ -1077,7 +1158,7 @@ section {
 }
 
 .review-content .correta {
-    color: var(--ok);
+    color: var(--accent);
     font-weight: 700;
 }
 
@@ -1094,8 +1175,8 @@ section {
 }
 
 .result.good {
-    border: 1px solid var(--ok);
-    color: var(--ok);
+    border: 1px solid var(--accent);
+    color: var(--accent);
 }
 
 .result.mid {

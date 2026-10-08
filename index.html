@@ -49,6 +49,7 @@
                 <a href="#prevencao">Prevenção</a>
                 <a href="#whatsapp">WhatsApp</a>
                 <a href="#pix">Pix</a>
+                <a href="#denuncia">Denunciar</a>
                 <a href="#quiz">Quiz</a>
             </div>
 
@@ -557,6 +558,70 @@
         </section>
 
         <!-- =========================
+             ONDE DENUNCIAR
+        ========================== -->
+
+        <section id="denuncia">
+            <div class="container">
+
+                <div class="section-title reveal">
+                    <h2>Onde denunciar golpes e fake news</h2>
+                    <p>
+                        Denunciar ajuda a proteger outras pessoas e pode acelerar uma investigação.
+                        Antes de denunciar, guarde prints, links e comprovantes — eles são a prova do golpe.
+                    </p>
+                </div>
+
+                <div class="grid">
+
+                    <div class="card">
+                        <div class="num">CRIME CIBERNÉTICO</div>
+                        <h3>SaferNet Brasil</h3>
+                        <p>Canal independente de denúncia de crimes e abusos na internet, em parceria com a Polícia Federal.</p>
+                        <a class="card-link" href="https://new.safernet.org.br/denuncie" target="_blank" rel="noopener noreferrer">new.safernet.org.br/denuncie ↗</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="num">GOLPE COM NOME DO GOVERNO</div>
+                        <h3>Fala.BR (CGU)</h3>
+                        <p>Para denunciar golpes que usam, de forma falsa, o nome de órgãos e programas do Governo Federal.</p>
+                        <a class="card-link" href="https://www.falabr.cgu.gov.br" target="_blank" rel="noopener noreferrer">falabr.cgu.gov.br ↗</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="num">BOLETIM DE OCORRÊNCIA</div>
+                        <h3>Delegacia Virtual</h3>
+                        <p>Registre um B.O. online direto na Polícia Civil do seu estado — pesquise "delegacia virtual" + o nome do seu estado.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="num">DENTRO DO APLICATIVO</div>
+                        <h3>WhatsApp, Instagram, Facebook</h3>
+                        <p>Use a opção "Denunciar" direto no perfil ou na conversa — ajuda a plataforma a agir mais rápido contra o golpista.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="num">GOLPE COM PIX</div>
+                        <h3>Seu banco (MED)</h3>
+                        <p>Contate seu banco assim que perceber a fraude e peça para acionar o Mecanismo Especial de Devolução (MED).</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="num">FAKE NEWS</div>
+                        <h3>Agências de checagem</h3>
+                        <p>Envie a notícia duvidosa para conferência profissional antes de compartilhar.</p>
+                        <div class="card-links">
+                            <a href="https://aosfatos.org" target="_blank" rel="noopener noreferrer">Aos Fatos ↗</a>
+                            <a href="https://lupa.uol.com.br" target="_blank" rel="noopener noreferrer">Agência Lupa ↗</a>
+                            <a href="https://g1.globo.com/fato-ou-fake/" target="_blank" rel="noopener noreferrer">Fato ou Fake (G1) ↗</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
              AVISO GERAL
         ========================== -->
 
@@ -603,6 +668,8 @@
                             <input type="radio" name="q1" value="1">
                             Parar, analisar e confirmar pelo canal oficial.
                         </label>
+
+                        <div class="question-feedback" id="feedback-q1"></div>
                     </fieldset>
 
                     <fieldset class="question">
@@ -617,6 +684,8 @@
                             <input type="radio" name="q2" value="1">
                             Não. O código não deve ser compartilhado.
                         </label>
+
+                        <div class="question-feedback" id="feedback-q2"></div>
                     </fieldset>
 
                     <fieldset class="question">
@@ -631,6 +700,8 @@
                             <input type="radio" name="q3" value="0">
                             Fazer logo para não perder a oportunidade.
                         </label>
+
+                        <div class="question-feedback" id="feedback-q3"></div>
                     </fieldset>
 
                     <fieldset class="question">
@@ -645,6 +716,8 @@
                             <input type="radio" name="q4" value="0">
                             Se está circulando bastante, deve ser verdade.
                         </label>
+
+                        <div class="question-feedback" id="feedback-q4"></div>
                     </fieldset>
 
                     <fieldset class="question">
@@ -659,9 +732,11 @@
                             <input type="radio" name="q5" value="0">
                             Texto assinado por um repórter, com data e fonte citada.
                         </label>
+
+                        <div class="question-feedback" id="feedback-q5"></div>
                     </fieldset>
 
-                    <button class="btn primary" id="btnCorrigir" type="button">Ver resultado</button>
+                    <button class="btn primary" id="btnCorrigir" type="button" disabled>Responda para continuar</button>
 
                     <p id="result" class="result" role="status"></p>
 

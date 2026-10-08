@@ -168,33 +168,100 @@ const perguntasQuiz = [
     }
 ];
 
+let perguntaAtual = 0;
+
+function obterFieldsets() {
+    return Array.from(document.querySelectorAll(".quiz .question"));
+}
+
 function initQuiz() {
     const botao = document.getElementById("btnCorrigir");
     const btnReiniciar = document.getElementById("btnTentarNovamente");
     if (!botao) return;
 
+    mostrarPergunta(0);
     atualizarProgresso();
 
-    // Realce visual da opção escolhida + atualização da barra de progresso,
-    // sem revelar a explicação ainda (isso só acontece no resultado final).
-    perguntasQuiz.forEach((p) => {
+    // Ao escolher uma alternativa, a resposta é travada e o feedback aparece na hora.
+    perguntasQuiz.forEach((p, indice) => {
         const inputs = document.querySelectorAll(`input[name="${p.nome}"]`);
 
         inputs.forEach((input) => {
-            input.addEventListener("change", () => {
-                inputs.forEach((i) => {
-                    i.closest(".option").classList.toggle("selecionada", i.checked);
-                });
-                atualizarProgresso();
-            });
+            input.addEventListener("change", () => responderPergunta(indice, input));
         });
     });
 
-    botao.addEventListener("click", corrigirQuiz);
+    botao.addEventListener("click", avancarQuiz);
 
     if (btnReiniciar) {
         btnReiniciar.addEventListener("click", reiniciarQuiz);
     }
+}
+
+function mostrarPergunta(indice) {
+    perguntaAtual = indice;
+    obterFieldsets().forEach((fs, i) => {
+        fs.classList.toggle("ativa", i === indice);
+    });
+    atualizarBotaoAvancar(false);
+}
+
+function responderPergunta(indice, inputEscolhido) {
+    const p = perguntasQuiz[indice];
+    const inputs = document.querySelectorAll(`input[name="${p.nome}"]`);
+    const acertou = Number(inputEscolhido.value) === 1;
+
+    inputs.forEach((input) => {
+        const opcao = input.closest(".option");
+        input.disabled = true;
+        opcao.classList.add("travada");
+
+        if (Number(input.value) === 1) {
+            opcao.classList.add("correta");
+        } else if (input === inputEscolhido) {
+            opcao.classList.add("incorreta");
+        }
+    });
+
+    const feedback = document.getElementById(`feedback-${p.nome}`);
+    if (feedback) {
+        feedback.innerHTML = `
+            <span class="veredito ${acertou ? "certo" : "errado"}">
+                ${acertou ? "✅ Isso mesmo!" : "❌ Não foi dessa vez."}
+            </span>
+            ${p.explicacao}
+        `;
+        feedback.classList.add("visivel");
+    }
+
+    atualizarProgresso();
+    atualizarBotaoAvancar(true);
+}
+
+function atualizarBotaoAvancar(respondida) {
+    const botao = document.getElementById("btnCorrigir");
+    if (!botao) return;
+
+    const ultima = perguntaAtual === perguntasQuiz.length - 1;
+    botao.disabled = !respondida;
+
+    if (!respondida) {
+        botao.textContent = "Responda para continuar";
+    } else {
+        botao.textContent = ultima ? "Ver resultado final" : "Próxima pergunta →";
+    }
+}
+
+function avancarQuiz() {
+    const ultima = perguntaAtual === perguntasQuiz.length - 1;
+
+    if (ultima) {
+        mostrarResultadoFinal();
+        return;
+    }
+
+    mostrarPergunta(perguntaAtual + 1);
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function contarRespondidas() {
@@ -211,8 +278,8 @@ function atualizarProgresso() {
 
     if (texto) {
         texto.textContent = respondidas === total
-            ? `Todas as ${total} perguntas respondidas — clique em "Ver resultado"`
-            : `${respondidas} de ${total} perguntas respondidas`;
+            ? `Todas as ${total} perguntas respondidas`
+            : `Pergunta ${Math.min(perguntaAtual + 1, total)} de ${total} — ${respondidas} respondida${respondidas === 1 ? "" : "s"}`;
     }
 
     if (barra) {
@@ -220,52 +287,30 @@ function atualizarProgresso() {
     }
 }
 
-function corrigirQuiz() {
+function mostrarResultadoFinal() {
     const total = perguntasQuiz.length;
-    const respondidas = contarRespondidas();
     const resultado = document.getElementById("result");
     const review = document.getElementById("review");
-
     if (!resultado || !review) return;
-
-    if (respondidas < total) {
-        resultado.className = "result mid visivel";
-        resultado.textContent = `Responda todas as ${total} perguntas antes de conferir o resultado. Faltam ${total - respondidas}.`;
-        review.classList.remove("visivel");
-        review.innerHTML = "";
-        resultado.scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-    }
 
     let pontos = 0;
     const linhasRevisao = [];
 
     perguntasQuiz.forEach((p, indice) => {
         const escolha = document.querySelector(`input[name="${p.nome}"]:checked`);
-        const acertou = Number(escolha.value) === 1;
+        const acertou = escolha && Number(escolha.value) === 1;
 
-        if (acertou) {
-            pontos++;
-            linhasRevisao.push(`
-                <div class="review-item certo">
-                    <div class="review-icon">✅</div>
-                    <div class="review-content">
-                        <h4>${indice + 1}. ${p.titulo}</h4>
-                        <p>Você acertou. ${p.explicacao}</p>
-                    </div>
+        if (acertou) pontos++;
+
+        linhasRevisao.push(`
+            <div class="review-item ${acertou ? "certo" : "errado"}">
+                <div class="review-icon">${acertou ? "✅" : "❌"}</div>
+                <div class="review-content">
+                    <h4>${indice + 1}. ${p.titulo}</h4>
+                    <p>${acertou ? "" : '<span class="correta">Resposta correta:</span> '}${p.explicacao}</p>
                 </div>
-            `);
-        } else {
-            linhasRevisao.push(`
-                <div class="review-item errado">
-                    <div class="review-icon">❌</div>
-                    <div class="review-content">
-                        <h4>${indice + 1}. ${p.titulo}</h4>
-                        <p><span class="correta">Resposta correta:</span> ${p.explicacao}</p>
-                    </div>
-                </div>
-            `);
-        }
+            </div>
+        `);
     });
 
     review.innerHTML = linhasRevisao.join("");
@@ -273,7 +318,7 @@ function corrigirQuiz() {
 
     if (pontos === total) {
         resultado.className = "result good visivel";
-        resultado.innerHTML = `<strong>${pontos}/${total} acertos!</strong><br>Excelente! Você reconheceu todos os sinais de golpe e de fake news desta rodada.`;
+        resultado.innerHTML = `<strong>${pontos}/${total} acertos!</strong><br>Excelente! Você reconheceu todos os sinais de golpe e de fake news desta rodada. Compartilhe o que aprendeu com quem você conhece.`;
     } else if (pontos >= Math.ceil(total / 2)) {
         resultado.className = "result mid visivel";
         resultado.innerHTML = `<strong>${pontos}/${total} acertos.</strong><br>Você já reconhece boa parte dos sinais. Veja abaixo o que errou para fechar as lacunas.`;
@@ -282,14 +327,14 @@ function corrigirQuiz() {
         resultado.innerHTML = `<strong>${pontos}/${total} acertos.</strong><br>Vale revisar as regras <strong>PARE, PENSE e CONFIRME</strong>. Confira abaixo, pergunta por pergunta, o que aconteceu.`;
     }
 
-    resultado.scrollIntoView({ behavior: "smooth", block: "center" });
-
-    // Mostra o botão de reiniciar e esconde o de corrigir,
-    // já que as respostas já foram todas dadas.
+    // Esconde a pergunta atual e o botão de avançar; mostra o de recomeçar.
+    obterFieldsets().forEach((fs) => fs.classList.remove("ativa"));
     const botao = document.getElementById("btnCorrigir");
     const btnReiniciar = document.getElementById("btnTentarNovamente");
     if (botao) botao.style.display = "none";
     if (btnReiniciar) btnReiniciar.style.display = "inline-block";
+
+    resultado.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function reiniciarQuiz() {
@@ -298,12 +343,18 @@ function reiniciarQuiz() {
     const botao = document.getElementById("btnCorrigir");
     const btnReiniciar = document.getElementById("btnTentarNovamente");
 
-    // Desmarca todas as respostas e tira o realce visual
     perguntasQuiz.forEach((p) => {
         document.querySelectorAll(`input[name="${p.nome}"]`).forEach((input) => {
             input.checked = false;
-            input.closest(".option").classList.remove("selecionada");
+            input.disabled = false;
+            input.closest(".option").classList.remove("travada", "correta", "incorreta");
         });
+
+        const feedback = document.getElementById(`feedback-${p.nome}`);
+        if (feedback) {
+            feedback.innerHTML = "";
+            feedback.classList.remove("visivel");
+        }
     });
 
     if (resultado) {
@@ -316,9 +367,10 @@ function reiniciarQuiz() {
         review.innerHTML = "";
     }
 
-    if (botao) botao.style.display = "inline-block";
+    if (botao) botao.style.display = "";
     if (btnReiniciar) btnReiniciar.style.display = "none";
 
+    mostrarPergunta(0);
     atualizarProgresso();
 
     document.getElementById("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
